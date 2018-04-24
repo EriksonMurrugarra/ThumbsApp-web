@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import './App.css';
-import { Button } from 'semantic-ui-react';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container, Segment } from 'semantic-ui-react';
+import MenuBar from './components/menubar';
+import TestsPage from './containers/tests-page';
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <h1> Hello </h1>
-        <Button>Click Me</Button>
-      </div>
+      <Container>
+        <MenuBar/>
+        <Segment>
+          <Router>
+            <Switch>
+              <Route path="/tests" component={TestsPage}/>
+            </Switch>
+          </Router>
+        </Segment>
+      </Container>
     );
   }
 }
