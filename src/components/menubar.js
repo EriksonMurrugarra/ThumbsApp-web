@@ -1,25 +1,50 @@
-import React from 'react';
-import { Menu, Image } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Menu, Image, Container } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Logo from '../images/logo.png';
 import User from '../images/user.jpg';
 
-const MenuBar = () => (
-  <Menu>
-    <Menu.Item>
-      <img alt="Logo" src={Logo}/>
-    </Menu.Item>
-    <Menu.Item>
-      Tests
-    </Menu.Item>
-    <Menu.Item>
-      Amigos
-    </Menu.Item>
-    <Menu.Menu position="right">
-      <Menu.Item>
-        <Image src={User} avatar/>
-      </Menu.Item>
-    </Menu.Menu>
-  </Menu>
-);
+class MenuBar extends Component {
 
+  state = {
+    activeItem: 'tests'
+  };
+
+  handleClick = (e, { name }) => {
+    this.setState({
+      activeItem: name
+    });
+  }
+
+  render () {
+    const { activeItem } = this.state;
+
+    return (<Menu inverted borderless={true} fixed="top">
+      <Container>
+        <Link to="/pruebas">
+          <Menu.Item as="span" name="home" onClick={this.handleClick}>
+            <img alt="Logo" src={Logo}/>
+          </Menu.Item>
+        </Link>
+        <Link to="/pruebas">
+          <Menu.Item as="span" name="tests" active={activeItem === 'tests' || activeItem === 'home'} onClick={this.handleClick}>
+            Pruebas
+          </Menu.Item>
+        </Link>
+        <Link to="/amigos">
+          <Menu.Item as="span" name="friends" active={activeItem === 'friends'} onClick={this.handleClick}>
+            Amigos
+          </Menu.Item>
+        </Link>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Image src={User} avatar/>
+          </Menu.Item>
+        </Menu.Menu>
+      </Container>
+    </Menu>);
+  }
+
+
+}
 export default MenuBar;

@@ -76,7 +76,7 @@ $.fn.tab = function(parameters) {
       module = {
 
         initialize: function() {
-          module.debug('Initializing tab menu item', $module);
+          module.debug('Initializing tabs menu item', $module);
           module.fix.callbacks();
           module.determineTabs();
 
@@ -113,9 +113,9 @@ $.fn.tab = function(parameters) {
 
         bind: {
           events: function() {
-            // if using $.tab don't add events
+            // if using $.tabs don't add events
             if( !$.isWindow( element ) ) {
-              module.debug('Attaching tab activation events to element', $module);
+              module.debug('Attaching tabs activation events to element', $module);
               $module
                 .on('click' + eventNamespace, module.event.click)
               ;
@@ -128,7 +128,7 @@ $.fn.tab = function(parameters) {
             $reference
           ;
 
-          // determine tab context
+          // determine tabs context
           if(settings.context === 'parent') {
             if($module.closest(selector.ui).length > 0) {
               $reference = $module.closest(selector.ui);
@@ -142,7 +142,7 @@ $.fn.tab = function(parameters) {
           }
           else if(settings.context) {
             $context = $(settings.context);
-            module.verbose('Using selector for tab context', settings.context, $context);
+            module.verbose('Using selector for tabs context', settings.context, $context);
           }
           else {
             $context = $('body');
@@ -150,11 +150,11 @@ $.fn.tab = function(parameters) {
           // find tabs
           if(settings.childrenOnly) {
             $tabs = $context.children(selector.tabs);
-            module.debug('Searching tab context children for tabs', $context, $tabs);
+            module.debug('Searching tabs context children for tabs', $context, $tabs);
           }
           else {
             $tabs = $context.find(selector.tabs);
-            module.debug('Searching tab context for tabs', $context, $tabs);
+            module.debug('Searching tabs context for tabs', $context, $tabs);
           }
         },
 
@@ -213,13 +213,13 @@ $.fn.tab = function(parameters) {
                 $.address.value(tabPath);
               }
               else {
-                module.verbose('Changing tab', event);
+                module.verbose('Changing tabs', event);
                 module.changeTab(tabPath);
               }
               event.preventDefault();
             }
             else {
-              module.debug('No tab specified');
+              module.debug('No tabs specified');
             }
           },
           history: {
@@ -243,7 +243,7 @@ $.fn.tab = function(parameters) {
 
         refresh: function() {
           if(activeTabPath) {
-            module.debug('Refreshing tab', activeTabPath);
+            module.debug('Refreshing tabs', activeTabPath);
             module.changeTab(activeTabPath);
           }
         },
@@ -272,10 +272,10 @@ $.fn.tab = function(parameters) {
           auto: function() {
             var
               url = (typeof settings.path == 'string')
-                ? settings.path.replace(/\/$/, '') + '/{$tab}'
-                : '/{$tab}'
+                ? settings.path.replace(/\/$/, '') + '/{$tabs}'
+                : '/{$tabs}'
             ;
-            module.verbose('Setting up automatic tab retrieval from server', url);
+            module.verbose('Setting up automatic tabs retrieval from server', url);
             if($.isPlainObject(settings.apiSettings)) {
               settings.apiSettings.url = url;
             }
@@ -332,7 +332,7 @@ $.fn.tab = function(parameters) {
               nextPath,
               isLastTab
             ;
-            module.verbose('Looking for tab', tab);
+            module.verbose('Looking for tabs', tab);
             if(isTab) {
               module.verbose('Tab was found', tab);
               // scope up
@@ -356,7 +356,7 @@ $.fn.tab = function(parameters) {
                   module.fetch.content(currentPath, tabPath);
                 }
                 else {
-                  module.debug('Ignoring remote content on first tab load', currentPath);
+                  module.debug('Ignoring remote content on first tabs load', currentPath);
                   firstLoad = false;
                   module.cache.add(tabPath, $tab.html());
                   module.activate.all(currentPath);
@@ -366,11 +366,11 @@ $.fn.tab = function(parameters) {
                 return false;
               }
               else {
-                module.debug('Opened local tab', currentPath);
+                module.debug('Opened local tabs', currentPath);
                 module.activate.all(currentPath);
                 if( !module.cache.read(currentPath) ) {
                   module.cache.add(currentPath, true);
-                  module.debug('First time tab loaded calling tab init');
+                  module.debug('First time tabs loaded calling tabs init');
                   settings.onFirstLoad.call($tab[0], currentPath, parameterArray, historyEvent);
                 }
                 settings.onLoad.call($tab[0], currentPath, parameterArray, historyEvent);
@@ -380,11 +380,11 @@ $.fn.tab = function(parameters) {
             else if(tabPath.search('/') == -1 && tabPath !== '') {
               // look for in page anchor
               $anchor     = $('#' + tabPath + ', a[name="' + tabPath + '"]');
-              currentPath = $anchor.closest('[data-tab]').data(metadata.tab);
+              currentPath = $anchor.closest('[data-tabs]').data(metadata.tab);
               $tab        = module.get.tabElement(currentPath);
-              // if anchor exists use parent tab
+              // if anchor exists use parent tabs
               if($anchor && $anchor.length > 0 && currentPath) {
-                module.debug('Anchor link used, opening parent tab', $tab, $anchor);
+                module.debug('Anchor link used, opening parent tabs', $tab, $anchor);
                 if( !$tab.hasClass(className.active) ) {
                   setTimeout(function() {
                     module.scrollTo($anchor);
@@ -393,7 +393,7 @@ $.fn.tab = function(parameters) {
                 module.activate.all(currentPath);
                 if( !module.cache.read(currentPath) ) {
                   module.cache.add(currentPath, true);
-                  module.debug('First time tab loaded calling tab init');
+                  module.debug('First time tabs loaded calling tabs init');
                   settings.onFirstLoad.call($tab[0], currentPath, parameterArray, historyEvent);
                 }
                 settings.onLoad.call($tab[0], currentPath, parameterArray, historyEvent);
@@ -414,7 +414,7 @@ $.fn.tab = function(parameters) {
               : false
           ;
           if(scrollOffset !== false) {
-            module.debug('Forcing scroll to an in-page link in a hidden tab', scrollOffset, $element);
+            module.debug('Forcing scroll to an in-page link in a hidden tabs', scrollOffset, $element);
             $(document).scrollTop(scrollOffset);
           }
         },
@@ -548,7 +548,7 @@ $.fn.tab = function(parameters) {
                 : $tabs.not($tab),
               isActive      = $tab.hasClass(className.active)
             ;
-            module.verbose('Showing tab content for', $tab);
+            module.verbose('Showing tabs content for', $tab);
             if(!isActive) {
               $tab
                 .addClass(className.active)
@@ -569,7 +569,7 @@ $.fn.tab = function(parameters) {
                 : $allModules.not($navigation),
               isActive    = $navigation.hasClass(className.active)
             ;
-            module.verbose('Activating tab navigation for', $navigation, tabPath);
+            module.verbose('Activating tabs navigation for', $navigation, tabPath);
             if(!isActive) {
               $navigation
                 .addClass(className.active)
@@ -614,7 +614,7 @@ $.fn.tab = function(parameters) {
           path: function() {
             return $.address.value();
           },
-          // adds default tabs to tab path
+          // adds default tabs to tabs path
           defaultPathArray: function(tabPath) {
             return module.utilities.pathToArray( module.get.defaultPath(tabPath) );
           },
@@ -624,7 +624,7 @@ $.fn.tab = function(parameters) {
               defaultTab  = $defaultNav.data(metadata.tab) || false
             ;
             if( defaultTab ) {
-              module.debug('Found default tab', defaultTab);
+              module.debug('Found default tabs', defaultTab);
               if(recursionDepth < settings.maxDepth) {
                 recursionDepth++;
                 return module.get.defaultPath(defaultTab);
@@ -897,13 +897,13 @@ $.fn.tab.settings = {
 
   context         : false,      // specify a context that tabs must appear inside
   childrenOnly    : false,      // use only tabs that are children of context
-  maxDepth        : 25,         // max depth a tab can be nested
+  maxDepth        : 25,         // max depth a tabs can be nested
 
   deactivate      : 'siblings', // whether tabs should deactivate sibling menu elements or all elements initialized together
 
-  alwaysRefresh   : false,      // load tab content new every tab click
+  alwaysRefresh   : false,      // load tabs content new every tabs click
   cache           : true,       // cache the content requests to pull locally
-  loadOnce        : false,      // Whether tab data should only be loaded once when using remote content
+  loadOnce        : false,      // Whether tabs data should only be loaded once when using remote content
   cacheType       : 'response', // Whether to cache exact response, or to html cache contents after scripts execute
   ignoreFirstLoad : false,      // don't load remote content on first load
 
@@ -912,8 +912,8 @@ $.fn.tab.settings = {
 
   onFirstLoad : function(tabPath, parameterArray, historyEvent) {}, // called first time loaded
   onLoad      : function(tabPath, parameterArray, historyEvent) {}, // called on every load
-  onVisible   : function(tabPath, parameterArray, historyEvent) {}, // called every time tab visible
-  onRequest   : function(tabPath, parameterArray, historyEvent) {}, // called ever time a tab beings loading remote content
+  onVisible   : function(tabPath, parameterArray, historyEvent) {}, // called every time tabs visible
+  onRequest   : function(tabPath, parameterArray, historyEvent) {}, // called ever time a tabs beings loading remote content
 
   templates : {
     determineTitle: function(tabArray) {} // returns page title for path
@@ -922,8 +922,8 @@ $.fn.tab.settings = {
   error: {
     api        : 'You attempted to load content without API module',
     method     : 'The method you called is not defined',
-    missingTab : 'Activated tab cannot be found. Tabs are case-sensitive.',
-    noContent  : 'The tab you specified is missing a content url.',
+    missingTab : 'Activated tabs cannot be found. Tabs are case-sensitive.',
+    noContent  : 'The tabs you specified is missing a content url.',
     path       : 'History enabled, but no path was specified',
     recursion  : 'Max recursive depth reached',
     legacyInit : 'onTabInit has been renamed to onFirstLoad in 2.0, please adjust your code.',

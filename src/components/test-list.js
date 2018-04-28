@@ -1,19 +1,24 @@
-import React, { Component } from 'react';
-import { Card } from 'semantic-ui-react';
-import TestItem from './test-item';
+import React from 'react';
+import { Header, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-class TestList extends Component {
-
-  render () {
-    return (
-      <Card.Group centered>
-        <TestItem title="Examen de Historia" description="Primer Semestre con la profesora Lusy " />
-        <TestItem title="Examen de Geografia" description="Primer Semestre con la profesora Lusy" />
-        <TestItem title="Practica de Quimica" description="Primer Semestre con la profesora Lusy" />
-      </Card.Group>
-    )
-  }
-
+const TestList = ({ tests }) => {
+  return (
+    <div>
+      {
+        tests.map(test => {
+          return (
+            <Header as='h3' key={test.id}>
+              <Icon name='book'/>
+              <Header.Content>
+                <Link to="/prueba/examen_de_historia">{test.title}</Link>
+              </Header.Content>
+            </Header>
+          )
+        })
+      }
+    </div>
+  );
 }
 
 export default TestList;
