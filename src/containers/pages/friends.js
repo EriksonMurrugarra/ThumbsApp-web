@@ -15,7 +15,7 @@ class FriendsPage extends Component {
     return (
       <div>
         {
-          <List divided horizontal size='large'>
+          <List divided size='large'>
             {
               this.props.friends.map(friend => (
                 <List.Item key={friend.name}>

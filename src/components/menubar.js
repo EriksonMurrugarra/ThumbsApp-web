@@ -37,10 +37,23 @@ class MenuBar extends Component {
           </Menu.Item>
         </Link>
         <Menu.Menu position="right">
-          <Menu.Item>
-            <Image src={User} avatar/>
-          </Menu.Item>
+          <Link to="/login">
+            <Menu.Item as="span">
+              Ingresar
+            </Menu.Item>
+          </Link>
+          <Link to="/signup">
+            <Menu.Item as="span">
+              Registrarme
+            </Menu.Item>
+          </Link>
+          <Link to="/profile">
+            <Menu.Item as="span" name="profile" active={activeItem === 'profile'} onClick={this.handleClick}>
+              <Image src={User} avatar/>
+            </Menu.Item>
+          </Link>
         </Menu.Menu>
+
       </Container>
     </Menu>);
   }
